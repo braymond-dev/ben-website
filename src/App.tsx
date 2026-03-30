@@ -459,15 +459,17 @@ function App() {
                   <article className="relative">
                     <div className="absolute left-[-2.7rem] top-7 hidden h-4 w-4 rounded-full border-4 border-white bg-pine shadow-glow md:block" />
                     <div className={`rounded-[1.2rem] p-4 shadow-soft backdrop-blur-xl md:rounded-[1.75rem] md:p-6 ${isDark ? "border border-white/10 bg-[linear-gradient(180deg,rgba(18,45,39,0.7),rgba(15,23,42,0.72))]" : "border border-white/70 bg-[linear-gradient(180deg,rgba(223,255,232,0.72),rgba(255,255,255,0.84))]"}`}>
-                      <div className={`mb-4 overflow-x-auto rounded-[1rem] p-2 md:mb-5 md:rounded-[1.35rem] md:p-3 ${isDark ? "border border-white/10 bg-white/5" : "border border-white/70 bg-white/60"}`}>
-                        <div className="flex w-max gap-3">
+                      <div className={`mb-4 rounded-[1rem] p-2 md:mb-5 md:rounded-[1.35rem] md:p-3 ${isDark ? "border border-white/10 bg-white/5" : "border border-white/70 bg-white/60"}`}>
+                        <div className="grid grid-cols-2 gap-2 md:flex md:w-max md:gap-3">
                           {(travelSelections.length > 0 ? travelSelections : [timelineTravelImage]).map((imagePath, index) => (
                             <img
                               key={imagePath}
                               src={imagePath}
                               alt={`Travel highlight ${index + 1}`}
                               loading="lazy"
-                              className="h-36 w-auto max-w-none rounded-[0.8rem] bg-white/70 object-contain sm:h-44 md:h-56 md:rounded-[1rem]"
+                              className={`w-full rounded-[0.8rem] bg-white/70 object-cover md:h-56 md:w-auto md:max-w-none md:rounded-[1rem] md:object-contain ${
+                                index === 0 ? "col-span-2 h-40 sm:h-48" : "h-28 sm:h-36"
+                              }`}
                             />
                           ))}
                         </div>
