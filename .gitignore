@@ -1,0 +1,12 @@
+node_modules
+dist
+playwright-report
+test-results
+.DS_Store
+coverage
+*.tsbuildinfo
+*.d.ts
+vite.config.js
+playwright.config.js
+tailwind.config.js
+public/**/*.Zone.Identifier
