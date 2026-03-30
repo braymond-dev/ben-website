@@ -59,6 +59,22 @@ function MoonIcon() {
   );
 }
 
+function MenuIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5 fill-current">
+      <path d="M4 6.75A.75.75 0 0 1 4.75 6h14.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 6.75Zm0 5.25a.75.75 0 0 1 .75-.75h14.5a.75.75 0 0 1 0 1.5H4.75A.75.75 0 0 1 4 12Zm0 5.25a.75.75 0 0 1 .75-.75h14.5a.75.75 0 0 1 0 1.5H4.75a.75.75 0 0 1-.75-.75Z" />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5 fill-current">
+      <path d="M6.72 6.72a.75.75 0 0 1 1.06 0L12 10.94l4.22-4.22a.75.75 0 1 1 1.06 1.06L13.06 12l4.22 4.22a.75.75 0 1 1-1.06 1.06L12 13.06l-4.22 4.22a.75.75 0 1 1-1.06-1.06L10.94 12 6.72 7.78a.75.75 0 0 1 0-1.06Z" />
+    </svg>
+  );
+}
+
 const skillIconMap: Record<string, string> = {
   Java: "/icons/skills/openjdk.svg",
   Scala: "/icons/skills/scala.svg",
@@ -141,6 +157,7 @@ function App() {
   });
   const [repos, setRepos] = useState<GitHubRepo[]>([]);
   const [reposState, setReposState] = useState<"loading" | "ready" | "error">("loading");
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   useEffect(() => {
     window.localStorage.setItem("theme-mode", theme);
@@ -290,6 +307,20 @@ function App() {
             </nav>
             <button
               type="button"
+              onClick={() => setMobileNavOpen((open) => !open)}
+              className={`inline-flex items-center justify-center rounded-full px-3 py-2 text-sm font-semibold transition md:hidden ${
+                isDark
+                  ? "border border-white/15 bg-white/5 text-slate-100 hover:border-sky-400 hover:text-sky-300"
+                  : "border border-white/70 bg-white/65 text-slate-800 hover:border-ocean hover:text-ocean"
+              }`}
+              aria-label={mobileNavOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-expanded={mobileNavOpen}
+              aria-controls="mobile-nav"
+            >
+              {mobileNavOpen ? <CloseIcon /> : <MenuIcon />}
+            </button>
+            <button
+              type="button"
               onClick={() => setTheme((current) => (current === "light" ? "dark" : "light"))}
               className={`inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-semibold transition ${
                 isDark
@@ -303,6 +334,61 @@ function App() {
             </button>
           </div>
         </div>
+        {mobileNavOpen ? (
+          <div className="mx-auto mt-3 max-w-6xl px-2 md:hidden">
+            <div
+              id="mobile-nav"
+              className={`rounded-[1.4rem] p-4 shadow-soft backdrop-blur-xl ${
+                isDark ? "border border-white/10 bg-slate-950/85" : "border border-white/60 bg-white/85"
+              }`}
+            >
+              <nav className="flex flex-col gap-2">
+                {navItems.map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMobileNavOpen(false)}
+                    className={`rounded-xl px-3 py-3 text-sm font-semibold transition ${
+                      isDark
+                        ? "text-slate-100 hover:bg-white/5 hover:text-sky-300"
+                        : "text-slate-800 hover:bg-white/70 hover:text-ocean"
+                    }`}
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </nav>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <a
+                  href={links.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-semibold transition ${
+                    isDark
+                      ? "border border-white/15 bg-white/5 text-slate-100 hover:border-sky-400 hover:text-sky-300"
+                      : "border border-white/70 bg-white/65 text-slate-800 hover:border-ocean hover:text-ocean"
+                  }`}
+                >
+                  <GitHubIcon />
+                  GitHub
+                </a>
+                <a
+                  href={links.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-semibold transition ${
+                    isDark
+                      ? "border border-white/15 bg-white/5 text-slate-100 hover:border-sky-400 hover:text-sky-300"
+                      : "border border-white/70 bg-white/65 text-slate-800 hover:border-ocean hover:text-ocean"
+                  }`}
+                >
+                  <LinkedInIcon />
+                  LinkedIn
+                </a>
+              </div>
+            </div>
+          </div>
+        ) : null}
       </header>
 
       <main className="relative z-10 mx-auto flex max-w-6xl flex-col gap-6 px-4 pb-8 pt-24 md:gap-10 md:px-6 md:pb-14 md:pt-32">
@@ -599,7 +685,7 @@ function App() {
                 >
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <p className={`text-xs uppercase tracking-[0.24em] ${isDark ? "text-sky-300" : "text-ocean"}`}>
-                      {repo.language ?? "Repository"}
+                      Repository
                     </p>
                     <p className={`text-xs uppercase tracking-[0.18em] ${isDark ? "text-slate-400" : "text-slate-500"}`}>
                       {repo.stargazers_count} stars

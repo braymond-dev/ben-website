@@ -10,3 +10,4 @@ vite.config.js
 playwright.config.js
 tailwind.config.js
 public/**/*.Zone.Identifier
+.codex
