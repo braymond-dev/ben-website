@@ -7,7 +7,7 @@ describe("App", () => {
 
     expect(
       screen.getByRole("heading", {
-        name: /full-stack software engineering with enterprise scale and strong frontend instincts/i
+        name: /full stack engineer with a bias for action and attention to detail/i
       })
     ).toBeInTheDocument();
 
@@ -16,8 +16,6 @@ describe("App", () => {
       "https://github.com/braymond-dev"
     );
 
-    expect(
-      screen.getByRole("heading", { name: /career timeline/i })
-    ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /github projects/i })).toBeInTheDocument();
   });
 });
