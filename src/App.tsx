@@ -468,7 +468,7 @@ function App() {
                               alt={`Travel highlight ${index + 1}`}
                               loading="lazy"
                               className={`w-full rounded-[0.8rem] bg-white/70 object-cover md:h-56 md:w-auto md:max-w-none md:rounded-[1rem] md:object-contain ${
-                                index === 0 ? "col-span-2 h-40 sm:h-48" : "h-28 sm:h-36"
+                                index === 0 ? "col-span-2 h-32 sm:h-40" : "h-24 sm:h-28"
                               }`}
                             />
                           ))}

@@ -110,7 +110,7 @@ export const education = [
 
 export const lifeSection = {
   title: "World Traveler",
-  date: "April 2023 - August 2024",
+  date: "April 2023 - March 2025",
   body:
     "Took a sabbatical backpacking extensively across Europe, the Middle East, Nepal, India, Japan, Taiwan, and Southeast Asia. Trekked to Everest Base Camp, spent long stretches moving between countries, and built friendships with people from many different cultures.",
   image: {
