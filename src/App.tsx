@@ -695,6 +695,19 @@ function App() {
                   <p className={`mt-4 min-h-24 text-sm leading-7 ${isDark ? "text-slate-300" : "text-slate-700"}`}>
                     {repo.description ?? "Open the repository to view project details, code, and recent activity."}
                   </p>
+                  {repo.homepage ? (
+                    <a
+                      href={repo.homepage}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={`mt-4 inline-block max-w-full truncate text-sm font-semibold ${
+                        isDark ? "text-sky-300 hover:text-sky-200" : "text-ocean hover:text-pine"
+                      }`}
+                      onClick={(event) => event.stopPropagation()}
+                    >
+                      {repo.homepage.replace(/^https?:\/\//, "").replace(/\/$/, "")}
+                    </a>
+                  ) : null}
                   <div className="mt-5 flex flex-wrap gap-2">
                     {[repo.language, ...(repo.topics ?? [])].filter(Boolean).slice(0, 6).map((tag) => (
                       <span
