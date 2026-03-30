@@ -383,7 +383,7 @@ function App() {
           intro=""
           dark={isDark}
         >
-          <div className="space-y-4">
+          <div className="min-w-0 space-y-4">
             <div
               className={`rounded-[1.4rem] p-4 md:rounded-[1.9rem] md:p-8 ${
                 isDark
@@ -391,15 +391,15 @@ function App() {
                   : "border border-white/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.82),rgba(223,248,255,0.54))]"
               }`}
             >
-              <div className="relative md:pl-12">
+              <div className="relative min-w-0 md:pl-12">
                 <div className={`absolute bottom-0 left-5 top-0 hidden w-px md:block ${isDark ? "bg-gradient-to-b from-white/20 via-sky-400/50 to-cyan-300/30" : "bg-gradient-to-b from-white via-lagoon/60 to-aurora"}`} />
-                <div className="space-y-4 md:space-y-8">
+                <div className="min-w-0 space-y-4 md:space-y-8">
                   {experience.map((role, index) => (
                     <article key={`${role.company}-${role.title}`} className="relative">
                       <div className="absolute left-[-2.7rem] top-7 hidden h-4 w-4 rounded-full border-4 border-white bg-ocean shadow-glow md:block" />
                       <div className={`rounded-[1.2rem] p-4 shadow-soft backdrop-blur-xl transition hover:-translate-y-1 md:rounded-[1.75rem] md:p-6 ${isDark ? "border border-white/10 bg-slate-950/55" : "border border-white/70 bg-white/80"}`}>
-                        <div className="grid gap-4 sm:grid-cols-[110px_1fr] md:gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-                          <div className={index % 2 === 0 ? "lg:order-1" : "lg:order-2"}>
+                        <div className="grid min-w-0 gap-4 sm:grid-cols-[110px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-start">
+                          <div className={`min-w-0 ${index % 2 === 0 ? "lg:order-1" : "lg:order-2"}`}>
                             <div className={`overflow-hidden rounded-[1rem] md:rounded-[1.35rem] ${isDark ? "border border-white/10 bg-white/5" : "border border-white/70 bg-white/60"}`}>
                               <img
                                 src={role.image.src}
@@ -412,9 +412,9 @@ function App() {
                               </div>
                             </div>
                           </div>
-                          <div className={index % 2 === 0 ? "lg:order-2" : "lg:order-1"}>
+                          <div className={`min-w-0 ${index % 2 === 0 ? "lg:order-2" : "lg:order-1"}`}>
                             <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between md:gap-3">
-                              <div>
+                              <div className="min-w-0">
                                 <p className={`text-[11px] uppercase tracking-[0.2em] md:text-xs md:tracking-[0.24em] ${isDark ? "text-sky-300" : "text-ocean"}`}>
                                   {index === 0 ? "Current Role" : "Previous Role"}
                                 </p>
@@ -427,7 +427,7 @@ function App() {
                                 {role.date}
                               </p>
                             </div>
-                            <ul className={`mt-3 space-y-2 text-sm leading-5 md:mt-4 md:leading-6 ${isDark ? "text-slate-300" : "text-slate-700"}`}>
+                            <ul className={`mt-3 min-w-0 space-y-2 text-sm leading-5 md:mt-4 md:leading-6 ${isDark ? "text-slate-300" : "text-slate-700"}`}>
                               {role.bullets.map((item) => (
                                 <li key={item} className="flex items-start gap-3">
                                   <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-lagoon" />
@@ -437,7 +437,7 @@ function App() {
                             </ul>
                             <div className="mt-4 md:mt-5">
                               <p className={`text-[11px] uppercase tracking-[0.18em] md:text-xs md:tracking-[0.22em] ${isDark ? "text-slate-400" : "text-slate-500"}`}>Tech Stack</p>
-                              <div className="mt-2 flex flex-wrap gap-1.5 md:mt-3 md:gap-2">
+                              <div className="mt-2 min-w-0 flex flex-wrap gap-1.5 md:mt-3 md:gap-2">
                                 {role.stack.map((tech) => (
                                   <span
                                     key={tech}
