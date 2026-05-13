@@ -8,6 +8,7 @@ coverage
 .env.local
 *.tsbuildinfo
 *.d.ts
+!src/vite-env.d.ts
 vite.config.js
 playwright.config.js
 tailwind.config.js
