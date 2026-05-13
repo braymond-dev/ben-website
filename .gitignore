@@ -4,6 +4,8 @@ playwright-report
 test-results
 .DS_Store
 coverage
+.env
+.env.local
 *.tsbuildinfo
 *.d.ts
 vite.config.js

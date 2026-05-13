@@ -2,13 +2,17 @@ import { useEffect, useState } from "react";
 import { Section } from "./components/Section";
 import {
   contact,
-  education,
-  experience,
   lifeSection,
   links,
   skillGroups,
   travelTimelineImages
 } from "./data/site-content";
+import {
+  fetchContentfulResumeContent,
+  getFallbackResumeContent,
+  isContentfulResumeConfigured,
+  type ResumeContent
+} from "./lib/contentful-resume";
 
 type ThemeMode = "light" | "dark";
 
@@ -158,6 +162,7 @@ function App() {
   const [repos, setRepos] = useState<GitHubRepo[]>([]);
   const [reposState, setReposState] = useState<"loading" | "ready" | "error">("loading");
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [resumeContent, setResumeContent] = useState<ResumeContent>(() => getFallbackResumeContent());
 
   useEffect(() => {
     window.localStorage.setItem("theme-mode", theme);
@@ -224,6 +229,32 @@ function App() {
     }
 
     void loadRepos();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadResumeContent() {
+      if (!isContentfulResumeConfigured()) {
+        return;
+      }
+
+      try {
+        const content = await fetchContentfulResumeContent();
+
+        if (!cancelled && content) {
+          setResumeContent(content);
+        }
+      } catch (error) {
+        console.error("Failed to load resume content from Contentful:", error);
+      }
+    }
+
+    void loadResumeContent();
 
     return () => {
       cancelled = true;
@@ -480,7 +511,7 @@ function App() {
               <div className="relative min-w-0 md:pl-12">
                 <div className={`absolute bottom-0 left-5 top-0 hidden w-px md:block ${isDark ? "bg-gradient-to-b from-white/20 via-sky-400/50 to-cyan-300/30" : "bg-gradient-to-b from-white via-lagoon/60 to-aurora"}`} />
                 <div className="min-w-0 space-y-4 md:space-y-8">
-                  {experience.map((role, index) => (
+                  {resumeContent.experience.map((role, index) => (
                     <article key={`${role.company}-${role.title}`} className="relative">
                       <div className="absolute left-[-2.7rem] top-7 hidden h-4 w-4 rounded-full border-4 border-white bg-ocean shadow-glow md:block" />
                       <div className={`rounded-[1.2rem] p-4 shadow-soft backdrop-blur-xl transition hover:-translate-y-1 md:rounded-[1.75rem] md:p-6 ${isDark ? "border border-white/10 bg-slate-950/55" : "border border-white/70 bg-white/80"}`}>
@@ -563,17 +594,17 @@ function App() {
                       <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between md:gap-3">
                         <div>
                           <p className={`text-[11px] uppercase tracking-[0.2em] md:text-xs md:tracking-[0.24em] ${isDark ? "text-emerald-300" : "text-pine"}`}>Intermission</p>
-                          <h4 className={`mt-1 font-display text-lg md:mt-2 md:text-2xl ${isDark ? "text-white" : "text-slate-900"}`}>{lifeSection.title}</h4>
+                          <h4 className={`mt-1 font-display text-lg md:mt-2 md:text-2xl ${isDark ? "text-white" : "text-slate-900"}`}>{resumeContent.lifeSection.title}</h4>
                         </div>
                         <p className={`self-start rounded-full px-3 py-1.5 text-[10px] uppercase tracking-[0.18em] md:px-4 md:py-2 md:text-xs md:tracking-[0.24em] ${isDark ? "border border-white/10 bg-white/5 text-slate-400" : "border border-aurora/40 bg-white/80 text-slate-500"}`}>
-                          {lifeSection.date}
+                          {resumeContent.lifeSection.date}
                         </p>
                       </div>
-                      <p className={`mt-4 text-sm leading-6 md:mt-5 md:leading-7 ${isDark ? "text-slate-300" : "text-slate-700"}`}>{lifeSection.body}</p>
+                      <p className={`mt-4 text-sm leading-6 md:mt-5 md:leading-7 ${isDark ? "text-slate-300" : "text-slate-700"}`}>{resumeContent.lifeSection.body}</p>
                     </div>
                   </article>
 
-                  {education.map((item) => (
+                  {resumeContent.education.map((item) => (
                     <article key={item.title} className="relative">
                       <div className="absolute left-[-2.7rem] top-7 hidden h-4 w-4 rounded-full border-4 border-white bg-lagoon shadow-glow md:block" />
                       <div className={`rounded-[1.2rem] p-4 shadow-soft backdrop-blur-xl md:rounded-[1.75rem] md:p-6 ${isDark ? "border border-white/10 bg-slate-950/55" : "border border-white/70 bg-white/80"}`}>
