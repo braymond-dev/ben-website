@@ -431,17 +431,20 @@ function App() {
           }`}
         >
           <div className="max-w-4xl space-y-4 animate-reveal md:space-y-6">
-            <p className={`text-xs uppercase tracking-[0.3em] md:text-sm md:tracking-[0.34em] ${isDark ? "text-sky-300" : "text-ocean"}`}>Software Engineer Portfolio</p>
+            <p className={`text-xs uppercase tracking-[0.3em] md:text-sm md:tracking-[0.34em] ${isDark ? "text-sky-300" : "text-ocean"}`}>
+              {resumeContent.hero.eyebrow}
+            </p>
             <div className="space-y-4">
               <h1 className={`font-display text-3xl leading-none sm:text-4xl md:text-7xl ${isDark ? "text-white" : "text-slate-950"}`}>
-                Full stack engineer with a bias for action and attention to detail
+                {resumeContent.hero.headline}
               </h1>
               <p className={`max-w-2xl text-base leading-7 md:text-lg md:leading-8 ${isDark ? "text-slate-300" : "text-slate-700"}`}>
-                I am a passionate software engineer who's been in the profession for over 6 years. I'm most concerned
-                with getting the job done and doing it well. I appreciate good tooling, clear communication, and great
-                working relationships. Scroll down to learn more!
+                {resumeContent.hero.body}
               </p>
             </div>
+            <p className={`pt-2 text-xs uppercase tracking-[0.2em] ${isDark ? "text-slate-400" : "text-slate-500"}`}>
+              {resumeContent.hero.footer}
+            </p>
           </div>
         </section>
 

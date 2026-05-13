@@ -3,8 +3,15 @@ import { education, experience, lifeSection } from "../data/site-content";
 export type ResumeExperience = (typeof experience)[number];
 export type ResumeEducation = (typeof education)[number];
 export type ResumeLifeSection = typeof lifeSection;
+export type HeroContent = {
+  eyebrow: string;
+  headline: string;
+  body: string;
+  footer: string;
+};
 
 export type ResumeContent = {
+  hero: HeroContent;
   experience: ResumeExperience[];
   education: ResumeEducation[];
   lifeSection: ResumeLifeSection;
@@ -74,6 +81,11 @@ function isLifeSection(value: unknown): value is ResumeLifeSection {
 function isResumeContent(value: unknown): value is ResumeContent {
   return (
     isRecord(value) &&
+    isRecord(value.hero) &&
+    isString(value.hero.eyebrow) &&
+    isString(value.hero.headline) &&
+    isString(value.hero.body) &&
+    isString(value.hero.footer) &&
     Array.isArray(value.experience) &&
     value.experience.every(isExperienceItem) &&
     Array.isArray(value.education) &&
@@ -84,6 +96,13 @@ function isResumeContent(value: unknown): value is ResumeContent {
 
 export function getFallbackResumeContent(): ResumeContent {
   return {
+    hero: {
+      eyebrow: "Software Engineer Portfolio",
+      headline: "Full stack engineer with a bias for action and attention to detail",
+      body:
+        "I am a passionate software engineer who's been in the profession for over 6 years. I'm most concerned with getting the job done and doing it well. I appreciate good tooling, clear communication, and great working relationships. Scroll down to learn more!",
+      footer: "Powered by Contentful CRM"
+    },
     experience,
     education,
     lifeSection
